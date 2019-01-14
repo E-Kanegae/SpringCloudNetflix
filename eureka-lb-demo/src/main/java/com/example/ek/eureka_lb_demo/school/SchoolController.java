@@ -28,23 +28,23 @@ public class SchoolController {
 	RestTemplate restTemplate;
 
 	@Bean
-    @LoadBalanced
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+	@LoadBalanced
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
 
 	@GetMapping(value = "/getSchoolDetails/{schoolname}")
-    public String getStudents(@PathVariable String schoolname)
-    {
-        System.out.println("Getting School details for " + schoolname);
+	public String getStudents(@PathVariable String schoolname) {
+		System.out.println("Getting School details for " + schoolname);
 
-        String response = restTemplate.exchange("http://studentService/getStudentDetails/{schoolname}",HttpMethod.GET,
-        	null, new ParameterizedTypeReference<String>() {}, schoolname).getBody();
+		String response = restTemplate.exchange("http://studentService/getStudentDetails/{schoolname}", HttpMethod.GET,
+				null, new ParameterizedTypeReference<String>() {
+				}, schoolname).getBody();
 
-        System.out.println("Response Received as " + response);
+		System.out.println("Response Received as " + response);
 
-        return "School Name -  " + schoolname + " \n Student Information - " + response;
-    }
+		return "School Name -  " + schoolname + " \n Student Information - " + response;
+	}
 
 	/**
 	 *
@@ -54,17 +54,19 @@ public class SchoolController {
 	 */
 	@GetMapping(value = "/getSchoolInfo/{schoolname}")
 	@HystrixCommand(fallbackMethod = "getStudentInfoFallback")
-    public String getStudentInfo(@PathVariable String schoolname)
-    {
-        System.out.println("Getting School information for " + schoolname);
+	public String getStudentInfo(@PathVariable String schoolname) {
+		System.out.println("Getting School information for " + schoolname);
 
-        String response = restTemplate.exchange("http://student-information/getStudentDetails/{schoolname}",HttpMethod.GET,
-        	null, new ParameterizedTypeReference<String>() {}, schoolname).getBody();
+		String response = restTemplate
+				.exchange("http://student-information/getStudentDetails/{schoolname}", HttpMethod.GET,
+						null, new ParameterizedTypeReference<String>() {
+						}, schoolname)
+				.getBody();
 
-        System.out.println("Response Received as " + response);
+		System.out.println("Response Received as " + response);
 
-        return "School Name -  " + schoolname + " \n Student Information - " + response;
-    }
+		return "School Name -  " + schoolname + " \n Student Information - " + response;
+	}
 
 	/**
 	 *
@@ -72,13 +74,12 @@ public class SchoolController {
 	 *
 	 */
 	@SuppressWarnings("unused")
-    private String getStudentInfoFallback(String schoolname) {
+	private String getStudentInfoFallback(String schoolname) {
 
-        System.out.println("Student Service is down!!! fallback route enabled...");
+		System.out.println("Student Service is down!!! fallback route enabled...");
 
-        return "CIRCUIT BREAKER ENABLED!!! No Response From Student Service at this moment. " +
-                    " Service will be back shortly - " + new Date();
-    }
-
+		return "CIRCUIT BREAKER ENABLED!!! No Response From Student Service at this moment. " +
+				" Service will be back shortly - " + new Date();
+	}
 
 }

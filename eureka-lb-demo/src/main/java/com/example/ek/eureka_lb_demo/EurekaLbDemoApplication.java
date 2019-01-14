@@ -13,9 +13,8 @@ public class EurekaLbDemoApplication {
 
 	public static void main(String[] args) {
 		new SpringApplicationBuilder(EurekaLbDemoApplication.class)
-		.web(WebApplicationType.SERVLET)
-		.run(args);
+				.web(WebApplicationType.SERVLET)
+				.run(args);
 	}
 
 }
-
