@@ -29,3 +29,7 @@ target/*
 */.project
 */.mvn
 */.classpath
+
+# for checking working
+work
+work/*
