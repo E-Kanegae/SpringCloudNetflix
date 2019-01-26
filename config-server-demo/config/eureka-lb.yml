@@ -15,3 +15,11 @@ server:
 spring:
   application:
     name: schoolService
+
+## for Histrix
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+    

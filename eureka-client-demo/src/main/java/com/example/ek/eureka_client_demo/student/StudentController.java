@@ -56,14 +56,23 @@ public class StudentController {
 
 	@GetMapping(value = "/getStudentDetails/{schoolname}")
 	public List<Student> getStudents(@PathVariable String schoolname) {
+		long startTime = System.currentTimeMillis();
 		System.out.println("Getting Student details for " + schoolname);
 
 		List<Student> studentList = schooDB.get(schoolname);
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
 		if (studentList == null) {
 			studentList = new ArrayList<Student>();
 			Student std = new Student("Not Found", "N/A");
 			studentList.add(std);
 		}
+		System.out.println("End to get student details for " + schoolname + ", time = "
+				+ (System.currentTimeMillis() - startTime) + "msec");
 		return studentList;
 	}
 

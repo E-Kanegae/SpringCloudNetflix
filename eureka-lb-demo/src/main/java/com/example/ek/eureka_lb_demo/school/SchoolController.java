@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 
 /**
  * eureka-lb-demo
@@ -34,6 +35,13 @@ public class SchoolController {
 	}
 
 	@GetMapping(value = "/getSchoolDetails/{schoolname}")
+	@HystrixCommand(fallbackMethod = "getStudentInfoFallback",
+					commandProperties = {
+					@HystrixProperty(name = "execution.timeout.enabled", value = "true"), //default
+					@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "5000"),
+					@HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds", value = "30000"),
+					@HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5")
+					})
 	public String getStudents(@PathVariable String schoolname) {
 		System.out.println("Getting School details for " + schoolname);
 

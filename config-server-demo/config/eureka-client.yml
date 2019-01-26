@@ -6,6 +6,10 @@ eureka:
     ### healthcheck
     healthcheck:
       enabled: true
+    ### Turbine
+#  instance:
+#    metadataMap:
+#      turbineCluster: MY_CLUSTER
 
 ### this application info
 server: 
@@ -15,3 +19,12 @@ server:
 spring:
   application:
     name: studentService
+
+## for Histrix
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: hystrix.stream
+
+  

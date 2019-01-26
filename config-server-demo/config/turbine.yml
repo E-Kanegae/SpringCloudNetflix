@@ -1,0 +1,20 @@
+server:
+  port: 8200
+
+# Eureka ServerのURL
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+turbine:
+  aggregator:
+    # Turbineで扱うcluster名（カンマ区切りで複数指定可能）
+    clusterConfig: MY_CLUSTER 
+  # Turbineで扱いたい各マイクロサービスのspring.application.name
+  appConfig: studentService
+  # 各マイクロサービスがcluster名としてEurekaに登録したメタ情報名
+  clusterNameExpression: metadata['turbineCluster']
+  # Eurekaから取得した「サーバー名:ポート番号/」の後ろに付けるURLサフィックス
+  instanceUrlSuffix:
+    MY_CLUSTER: actuator/hystrix.stream
