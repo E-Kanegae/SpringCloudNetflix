@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.example.ek.eureka_client_demo.equipment";
+
+package equipment_proto;
+
+service EquipmentService {
+	rpc getEquipment (EquipmentRequest) returns (EquipmentResponse);
+}
+
+message EquipmentRequest{
+	string schoolName = 1;
+}
+
+message EquipmentResponse{
+	string message = 1;
+	repeated EquipmentInfo equipmentInfo = 2;
+}
+
+message EquipmentInfo{
+	string catagory = 1;
+	string name = 2;
+}

@@ -1,5 +1,9 @@
 package com.example.ek.eureka_client_demo.student;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * eureka-client-demo
  * com.example.ek.eureka_client_demo.student.Student.java
@@ -9,47 +13,18 @@ package com.example.ek.eureka_client_demo.student;
  * @author etsukanegae
  *
  */
+@AllArgsConstructor
+@Getter
+@Setter
 public class Student {
 
+	/**
+	 * 生徒名
+	 */
 	private String name;
+
+	/**
+	 * 授業名
+	 */
 	private String className;
-
-	/**
-	 * コンストラクタ
-	 * @param name
-	 * @param className
-	 */
-	protected Student(String name, String className) {
-		setName(name);
-		setClassName(className);
-	}
-
-	/**
-	 * @return name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name セットする name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
-	 * @return className
-	 */
-	public String getClassName() {
-		return className;
-	}
-
-	/**
-	 * @param className セットする className
-	 */
-	public void setClassName(String className) {
-		this.className = className;
-	}
-
 }

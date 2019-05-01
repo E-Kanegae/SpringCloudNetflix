@@ -1,0 +1,8 @@
+## grpc settings
+grpc:
+ port: 6565
+### eurekaの機能でクライアントロードバランシングするためには以下を使う。
+### 今回はclient側はRESTとgRPCを使うため以下をONにするとRESTがうまく行かないのでOFFにする。
+#eureka:
+#    instance:
+#        nonSecurePort: ${grpc.port}
